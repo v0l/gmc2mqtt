@@ -18,7 +18,7 @@ namespace gmc2mqtt
             var cmd = new RootCommand("GQ - Geiger Muller Counter to MQTT")
             {
                 new Option<Uri>("--mqtt", "Mqtt server address") {
-                    IsRequired = true 
+                    IsRequired = true
                 },
                 new Option<string>("--serial-port", "Serial port to open for GMC device")
                 {
@@ -102,9 +102,9 @@ namespace gmc2mqtt
         {
             var offset = 0;
             var result = new byte[n];
-            read_again:
+        read_again:
             offset += sp.Read(result, offset, n - offset);
-            if(offset < n)
+            if (offset < n)
             {
                 goto read_again;
             }
@@ -112,5 +112,8 @@ namespace gmc2mqtt
         }
     }
 
-    internal record Reading(int CPM);
+    internal record Reading(int cpm)
+    {
+        public float uSv => cpm * 0.0057f;
+    }
 }
