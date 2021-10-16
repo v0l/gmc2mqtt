@@ -87,7 +87,12 @@ namespace gmc2mqtt
                 if (cpm.Type == CountType.CountsPerMinute)
                 {
                     var payload = new Reading(cpm.Value);
-                    await mqttClient.PublishAsync($"gmc2mqtt/{serialHex}", JsonSerializer.Serialize(payload));
+                    await mqttClient.PublishAsync(new MqttApplicationMessage()
+                    {
+                        Topic = $"gmc2mqtt/{serialHex}",
+                        ContentType = "application/json",
+                        Payload = JsonSerializer.SerializeToUtf8Bytes(payload)
+                    });
                 }
                 await Task.Delay(TimeSpan.FromSeconds(10));
             }
