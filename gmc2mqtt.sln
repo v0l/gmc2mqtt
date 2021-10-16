@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gmc2mqtt", "gmc2mqtt\gmc2mqtt.csproj", "{ED2BF95F-827A-48BE-AB93-8BCBEB854350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{8D962B7A-4AC2-4A21-AFB5-A32BD528BF35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shared", "shared\shared.csproj", "{76A1AE1E-EF25-4531-A820-157CA8636434}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED2BF95F-827A-48BE-AB93-8BCBEB854350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2BF95F-827A-48BE-AB93-8BCBEB854350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2BF95F-827A-48BE-AB93-8BCBEB854350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2BF95F-827A-48BE-AB93-8BCBEB854350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D962B7A-4AC2-4A21-AFB5-A32BD528BF35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D962B7A-4AC2-4A21-AFB5-A32BD528BF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D962B7A-4AC2-4A21-AFB5-A32BD528BF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D962B7A-4AC2-4A21-AFB5-A32BD528BF35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A1AE1E-EF25-4531-A820-157CA8636434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A1AE1E-EF25-4531-A820-157CA8636434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A1AE1E-EF25-4531-A820-157CA8636434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A1AE1E-EF25-4531-A820-157CA8636434}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85D88B95-816B-42D0-92EF-DA09AAC73D65}
+	EndGlobalSection
+EndGlobal
