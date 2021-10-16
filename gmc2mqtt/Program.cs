@@ -6,6 +6,7 @@ using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO.Ports;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace gmc2mqtt
@@ -85,7 +86,8 @@ namespace gmc2mqtt
                 Console.WriteLine($"CPM: [{msb:X2} {lsb:X2}] {cpm}");
                 if (cpm.Type == CountType.CountsPerMinute)
                 {
-                    await mqttClient.PublishAsync($"gmc2mqtt/{serialHex}", cpm.Value.ToString());
+                    var payload = new Reading(cpm.Value);
+                    await mqttClient.PublishAsync($"gmc2mqtt/{serialHex}", JsonSerializer.Serialize(payload));
                 }
                 await Task.Delay(TimeSpan.FromSeconds(10));
             }
@@ -104,4 +106,6 @@ namespace gmc2mqtt
             return result;
         }
     }
+
+    internal record Reading(int CPM);
 }
