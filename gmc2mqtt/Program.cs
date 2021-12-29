@@ -3,10 +3,14 @@ using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using shared;
 using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace gmc2mqtt
@@ -21,9 +25,6 @@ namespace gmc2mqtt
                     IsRequired = true
                 },
                 new Option<string>("--serial-port", "Serial port to open for GMC device")
-                {
-                    IsRequired = true
-                }
             };
 
             cmd.Handler = CommandHandler.Create(async (Uri mqtt, string serialPort) =>
@@ -40,19 +41,35 @@ namespace gmc2mqtt
 
                 while (true)
                 {
-                    try
+                    foreach (var port in EnumPorts(serialPort))
                     {
-                        await ReadCPM(serialPort, mqttClient);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                        await Task.Delay(TimeSpan.FromSeconds(10));
+                        Console.WriteLine($"Opening port: {port}");
+                        try
+                        {
+                            await ReadCPM(port, mqttClient);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                            await Task.Delay(TimeSpan.FromSeconds(1));
+                        }
                     }
                 }
             });
 
             return cmd.InvokeAsync(args);
+        }
+
+        static IEnumerable<string> EnumPorts(string selectedPort)
+        {
+            if (string.IsNullOrEmpty(selectedPort))
+            {
+                return SerialPort.GetPortNames();
+            }
+            else
+            {
+                return new[] { selectedPort };
+            }
         }
 
         static async Task ReadCPM(string port, IMqttClient mqttClient)
@@ -62,6 +79,7 @@ namespace gmc2mqtt
             sp.DataBits = 8;
             sp.Parity = Parity.None;
             sp.StopBits = StopBits.One;
+            sp.ReadTimeout = 1000;
 
             sp.Open();
 
